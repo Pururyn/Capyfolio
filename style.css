@@ -85,17 +85,18 @@ nav a {
 
 .hero-content {
     position: absolute;
-    top: 30%;
-    left: 45%;
+    top: 25%; /* On remonte bien sur le mur */
+    left: 38%; /* On décale vers la gauche pour éviter le capybara */
     transform: translate(-50%, -50%);
-    width: 70%;
+    width: 55%; /* On réduit la largeur pour que le texte ne s'étale pas trop */
     text-align: center;
 }
 
     .hero-content h1 {
-        font-size: clamp(1.8rem, 4.5vw, 3.5rem);
+        font-size: clamp(1.2rem, 3vw, 2.2rem); /* Taille ajustée pour le cadre */
+        line-height: 1.2;
         color: var(--text-main);
-        text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.7);
+        text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5); /* Optionnel : pour la lisibilité */
     }
 
     .hero-content .tagline {
