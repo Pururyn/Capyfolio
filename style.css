@@ -10,6 +10,7 @@
 html {
     height: 100%;
     scroll-behavior: smooth;
+    scroll-snap-type: y mandatory; /* Capture le scroll verticalement */
 }
 
 body {
@@ -274,6 +275,8 @@ nav a {
 
 section {
     padding: 60px 0;
+    scroll-snap-align: start; /* La section se cale au début de l'écran */
+    scroll-snap-stop: always; /* Force l'arrêt même si on scroll fort */
 }
 
 /* PROJETS */
@@ -338,6 +341,7 @@ footer {
     padding: 20px 0;
     text-align: center;
     width: 100%;
+    scroll-snap-align: end;
     /* On le laisse se placer naturellement après la section contact */
 }
 
