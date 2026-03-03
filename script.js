@@ -10,4 +10,20 @@ window.addEventListener('scroll', () => {
         backToTopButton.classList.remove('visible');
         nav.classList.remove('visible');
     }
+
+    // Logique du Slider Projets
+    const grid = document.querySelector('.project-grid');
+    const nextBtn = document.querySelector('.next');
+    const prevBtn = document.querySelector('.prev');
+
+    if (nextBtn && prevBtn) {
+        nextBtn.addEventListener('click', () => {
+            // On défile de la largeur d'une carte
+            grid.scrollLeft += grid.offsetWidth;
+        });
+
+        prevBtn.addEventListener('click', () => {
+            grid.scrollLeft -= grid.offsetWidth;
+        });
+    }
 });
