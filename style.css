@@ -17,7 +17,7 @@ body {
     background-color: var(--bg-color);
     color: var(--text-main);
     margin: 0;
-    padding: 0; /* Suppression du padding qui créait l'espace blanc */
+    padding: 0;
     position: relative;
     min-height: 100%;
     overflow-x: hidden;
@@ -26,16 +26,15 @@ body {
 /* --- NAVIGATION --- */
 nav {
     position: fixed;
-    top: -100px; /* Caché par défaut en haut */
+    top: -100px;
     width: 100%;
     background: rgba(195, 210, 160, 0.95);
     backdrop-filter: blur(5px);
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    transition: top 0.4s ease-in-out; /* Animation fluide pour l'apparition */
+    transition: top 0.4s ease-in-out;
 }
 
-    /* Classe qui sera ajoutée via le script.js pour montrer le header */
     nav.visible {
         top: 0;
     }
@@ -83,29 +82,35 @@ nav a {
     display: block;
 }
 
+/* --- CORRECTION ALIGNEMENT TEXTE ACCUEIL --- */
 .hero-content {
     position: absolute;
-    top: 25%; /* On remonte bien sur le mur */
-    left: 38%; /* On décale vers la gauche pour éviter le capybara */
+    top: 20%;
+    left: 45%; /* Ajusté de 38% à 52% pour décaler vers la droite */
     transform: translate(-50%, -50%);
-    width: 55%; /* On réduit la largeur pour que le texte ne s'étale pas trop */
+    width: 55%; /* On resserre un peu la largeur pour un meilleur équilibre */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-}
+}   
 
     .hero-content h1 {
-        font-size: clamp(1.2rem, 3vw, 2.2rem); /* Taille ajustée pour le cadre */
-        line-height: 1.2;
+        font-size: clamp(1.2rem, 3vw, 2.2rem);
+        line-height: 1.4; /* Augmenté pour aérer le cadre */
         color: var(--text-main);
-        text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.5); /* Optionnel : pour la lisibilité */
+        margin: 0; /* Suppression des marges pour un centrage parfait */
     }
 
     .hero-content .tagline {
         font-size: clamp(0.9rem, 1.8vw, 1.4rem);
         color: var(--text-main);
+        margin-top: 10px;
     }
 
-/* --- Bouton scroll --- */
-
+/* --- CORRECTION FLÈCHE SCROLL CENTRÉE --- */
 .scroll-indicator {
     position: absolute;
     bottom: 40px;
@@ -123,38 +128,117 @@ nav a {
         color: white;
         text-decoration: none;
         border-radius: 50%;
-        font-size: 2rem;
+        font-size: 1.8rem;
+        /* On annule toute hauteur de ligne qui pourrait pousser vers le bas */
+        line-height: 0;
+        /* AJUSTEMENT PRÉCIS : On remonte un peu le texte pour compenser l'alignement de la police */
+        padding-bottom: 5px;
         animation: bounce 2s infinite;
     }
 
-/* --- BOUTON TÉLÉCHARGEMENT --- */
-.download-container {
+/* --- STYLE GLOBAL DES SECTIONS PLEIN ÉCRAN --- */
+#qui-suis-je, #projets {
+    min-height: 100vh; /* Force la section à faire 100% de la hauteur de l'écran */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centre tout le contenu verticalement */
+    align-items: center; /* Centre tout le contenu horizontalement */
+    padding: 40px 20px; /* Sécurité pour ne pas toucher les bords sur petit écran */
+    box-sizing: border-box;
+}
+
+/* --- AJUSTEMENTS SPÉCIFIQUES --- */
+
+/* Pour la Bio : on limite la largeur pour que ce soit lisible */
+.bio-text {
+    max-width: 700px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Pour les Projets : on s'assure que la grille utilise bien l'espace */
+.project-grid {
+    width: 100%;
+    max-width: 1000px; /* Un peu plus large pour les cartes */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+/* --- SECTION CONTACT PLEIN ÉCRAN --- */
+#contact {
+    min-height: 100vh; /* Toute la hauteur de l'écran */
+    display: flex;
+    justify-content: center; /* Centre la carte horizontalement */
+    align-items: center; /* Centre la carte verticalement */
+    padding: 20px;
+}
+
+/* --- TITRES AVEC MASCOTTES (Bio & Projets) --- */
+.title-with-mascot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    animation: globalFloating 3s ease-in-out infinite;
+}
+
+.mini-capy {
+    width: 65px;
+    height: auto;
+    object-fit: contain;
+}
+
+.title-with-mascot h2 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    color: var(--text-main);
+}
+
+@keyframes globalFloating {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* --- BOUTONS DE TÉLÉCHARGEMENT --- */
+.download-options {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
     margin-top: 30px;
-    text-align: center; /* Centre le bouton dans la section bio */
+    flex-wrap: wrap;
 }
 
 .btn-download {
-    display: inline-block;
-    background-color: #8b9356; /* Le même vert que ta flèche et ton header */
-    color: white;
-    padding: 12px 25px;
+    padding: 10px 20px;
     border-radius: 50px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+    background-color: #8b9356;
+    color: white;
+    border: 2px solid transparent;
 }
 
-    .btn-download:hover {
-        background-color: var(--accent); /* Change vers ton orange au survol */
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    }
+.btn-ats {
+    background-color: transparent;
+    color: #4a3728;
+    border: 2px solid #8b9356;
+}
 
-    .btn-download span {
-        margin-right: 8px;
-    }
+.btn-download:hover {
+    transform: translateY(-3px);
+    background-color: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
 /* --- CONTENU ET FEUILLAGES --- */
 .content-wrapper {
     position: relative;
@@ -183,7 +267,7 @@ nav a {
 .main-container {
     max-width: 850px;
     margin: 0 auto;
-    padding: 80px 60px; /* Plus d'espace en haut pour la bio */
+    padding: 80px 60px;
     position: relative;
     z-index: 2;
 }
@@ -191,12 +275,6 @@ nav a {
 section {
     padding: 60px 0;
 }
-
-    section h2 {
-        text-align: center;
-        margin-bottom: 35px;
-        font-size: 2rem;
-    }
 
 /* PROJETS */
 .project-grid {
@@ -234,9 +312,14 @@ section {
 .contact-card {
     background-color: #b38b6d;
     color: white;
-    padding: 50px;
-    border-radius: 30px;
+    padding: 60px;
+    border-radius: 40px;
     text-align: center;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    /* Optionnel : petite animation de flottement pour la carte aussi */
+    animation: globalFloating 4s ease-in-out infinite;
 }
 
 .btn {
@@ -252,8 +335,10 @@ section {
 
 footer {
     background: #c3d2a0;
-    padding: 30px 0;
+    padding: 20px 0;
     text-align: center;
+    width: 100%;
+    /* On le laisse se placer naturellement après la section contact */
 }
 
 .back-to-top {
@@ -301,5 +386,10 @@ footer {
     .content-wrapper::before, .content-wrapper::after {
         display: none;
     }
-    /* On cache les tiges sur mobile pour la lisibilité */
+
+    .hero-content {
+        left: 50%;
+        width: 90%;
+        top: 20%;
+    }
 }
